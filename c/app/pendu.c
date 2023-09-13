@@ -3,12 +3,12 @@
 #include<string.h>
 #include<ctype.h>
 
+#include"affichage.h"
 
-void print_bienvenue();
+
 // int size_string(char mot[]); IL existe strlen dans la bibliothèque string.h
 char lireCaractere();
 int findLetter(char letter, int lenMot, int count_found, char letters_found[]);
-void printMotMystere(int lenMot, char letters_found[]);
 int nombreLettresTrouvees(char motsecret[], char lettres_trouvees[]);
 
 char mot_mystere[] = "LUCASBARBIER";
@@ -42,7 +42,7 @@ int main() {
         viesRestante -= 1;
     }
 
-        printMotMystere(len_mot, letters_found);
+        printMotMystere(len_mot, mot_mystere, letters_found);
         if (nombreLettresTrouvees(mot_mystere, letters_found) == len_mot){
         printf("Félicitations, le mot %s est trouvé !\n", mot_mystere);
         break;
@@ -53,10 +53,7 @@ int main() {
 }
 
 
-void print_bienvenue(){
-    printf("Bienvenue dans le jeu du pendu en C !\n");
-    printf("Vous avez 10 vies pour déterminer le mot mystère...\n");
-}
+
 
 int nombreLettresTrouvees(char motsecret[], char lettres_trouvees[]){
     int compteur = 0;
@@ -104,17 +101,4 @@ int findLetter(char letter, int lenMot, int count_found, char letters_found[]){
         }
     }
     return isLetterPresent;
-}
-
-void printMotMystere(int lenMot, char letters_found[]){
-    int found = 1;
-    for(int i = 0; i <= lenMot; i++){
-            if(mot_mystere[i] == letters_found[i]){
-                printf("%c", mot_mystere[i]);
-            }
-            else {
-                printf("%c",'*');
-            }
-        }
-    printf("\n");
 }
