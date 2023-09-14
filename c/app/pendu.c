@@ -78,12 +78,12 @@ int findLetter(char letter, char mot_mystere[], char letters_found[]){
     int isLetterPresent = 0;
     int lenMot = strlen(mot_mystere);
     // Verifie si la lettre & déjà été entrée
-    for(int i = 0; i <= lenMot; i++){
+    for(int i = 0; i < lenMot; i++){
         if (letters_found[i] == letter){
             return 1999;
         }
     }
-    for(int i = 0; i <= lenMot; i++){
+    for(int i = 0; i < lenMot; i++){
         if (mot_mystere[i] == letter){
             letters_found[i] = letter;
             isLetterPresent = 1;
