@@ -80,6 +80,7 @@ int findLetter(char letter, char mot_mystere[], char letters_found[]){
     // Verifie si la lettre & déjà été entrée
     for(int i = 0; i < lenMot; i++){
         if (letters_found[i] == letter){
+            printf("La lettre %c a déjà été entrée\n", letter);
             return 1999;
         }
     }
@@ -91,3 +92,5 @@ int findLetter(char letter, char mot_mystere[], char letters_found[]){
     }
     return isLetterPresent;
 }
+
+// TODO: Changer les valeurs initiales de lettres_trouvees
