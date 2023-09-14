@@ -3,13 +3,8 @@
 #include<string.h>
 #include<ctype.h>
 
+#include"main.h"
 #include"affichage.h"
-
-
-// int size_string(char mot[]); IL existe strlen dans la bibliothèque string.h
-char lireCaractere();
-int findLetter(char letter, char letters_found[]);
-int nombreLettresTrouvees(char motsecret[], char lettres_trouvees[]);
 
 char mot_mystere[] = "LUCASBARBIER";
 
