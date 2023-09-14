@@ -27,9 +27,13 @@ int main() {
     if(letters_found == NULL){
         exit(0);
     }
+    for (int i = 0; i < len_mot; i++){
+        letters_found[i] = '*';
+    }
 
     print_bienvenue();
     printf("Le mot mystère fait %d lettres\n\n", len_mot);
+    printf("%s", mot_mystere);
 
     while (viesRestante > 0){
         printf("\n\n%d vies restantes !\n", viesRestante);
@@ -94,3 +98,4 @@ int findLetter(char letter, char mot_mystere[], char letters_found[]){
 }
 
 // TODO: Changer les valeurs initiales de lettres_trouvees
+// Problème avec len_mot : donne toujours un de plus...
