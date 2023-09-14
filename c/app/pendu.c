@@ -5,19 +5,25 @@
 
 #include"main.h"
 #include"affichage.h"
+#include"dico.h"
 
-char mot_mystere[] = "LUCASBARBIER";
+// char mot_mystere[] = "LUCASBARBIER";
 
 int main() {
     // int indices_found[] = {};
     char currentchar = 0;
     int viesRestante = 10;
     int LetterPresent = 0;
+    char mot_mystere[100] = {0};
     int current_count, total_count = 0;
     char* letters_found = NULL;
-    int len_mot = strlen(mot_mystere);
-    letters_found = (char*) malloc(len_mot * sizeof(char));
+    int len_mot = 0;
 
+    if (!piocherMot(mot_mystere))
+        exit(0);
+    len_mot = strlen(mot_mystere);
+    letters_found = (char*) malloc(len_mot * sizeof(char));
+    
     if(letters_found == NULL){
         exit(0);
     }
@@ -29,7 +35,7 @@ int main() {
         printf("\n\n%d vies restantes !\n", viesRestante);
         printf("Entrer votre lettre: ");
         currentchar = lireCaractere();
-        LetterPresent = findLetter(currentchar, letters_found);
+        LetterPresent = findLetter(currentchar, mot_mystere, letters_found);
 
     if (!LetterPresent) { // La lettre n'est pas dans le mot
         viesRestante -= 1;
@@ -41,6 +47,8 @@ int main() {
             break;
         }
     }
+    if (viesRestante == 0)
+        printf("Perdu ! Le mot secret était :%s\n", mot_mystere);
     free(letters_found);
     return 0;
 }
@@ -66,7 +74,7 @@ char lireCaractere() {
     return caractere;
 }
 
-int findLetter(char letter, char letters_found[]){
+int findLetter(char letter, char mot_mystere[], char letters_found[]){
     int isLetterPresent = 0;
     int lenMot = strlen(mot_mystere);
     // Verifie si la lettre & déjà été entrée
