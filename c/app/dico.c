@@ -10,11 +10,11 @@ int piocherMot(char *motPioche){
     FILE* dico = NULL; // Pointeur vers le contenu du fichier
     int nombreMots = 0, numMotChoisi = 0;
     int caractereLu = 0;
-
-    dico = fopen("app/dico.txt", "r");
+    char* filename = "media/ods6.txt";
+    dico = fopen(filename, "r");
 
     if (dico == NULL){
-        printf("\nImpossible de charger le dictionnaire de mots.\n\n");
+        printf("\nImpossible de charger le dictionnaire de mots '%s'.\n\n", filename);
         return 0;
     }
 
