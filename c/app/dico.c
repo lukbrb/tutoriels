@@ -35,7 +35,7 @@ int piocherMot(char *motPioche){
 
     fgets(motPioche, 100, dico);
 
-    motPioche[strlen(motPioche) - 1] == '\0'; // On enlève le '\n' à la fin.
+    motPioche[strlen(motPioche) - 1] = '\0'; // On enlève le '\n' à la fin.
 
     fclose(dico);
 
