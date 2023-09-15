@@ -1,11 +1,11 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include<ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-#include"main.h"
-#include"affichage.h"
-#include"dico.h"
+#include "main.h"
+#include "affichage.h"
+#include "dico.h"
 
 // char mot_mystere[] = "LUCASBARBIER";
 
@@ -13,9 +13,7 @@ int main() {
     // int indices_found[] = {};
     char currentchar = 0;
     int viesRestante = 10;
-    int LetterPresent = 0;
     char mot_mystere[100] = {0};
-    int current_count, total_count = 0;
     char* letters_found = NULL;
     int len_mot = 0;
 
@@ -32,26 +30,26 @@ int main() {
     }
 
     print_bienvenue();
-    printf("Le mot mystère fait %d lettres\n\n", len_mot);
+    printf(JAUNE "Le mot mystère fait %d lettres\n\n" RESET, len_mot);
 
     while (viesRestante > 0){
-        printf("\n\n%d vies restantes !\n", viesRestante);
-        printf("Entrer votre lettre: ");
+        printf(JAUNE "\n%d vies restantes !\n" RESET, viesRestante);
+        printf(JAUNE "Entrer votre lettre: " RESET);
         currentchar = lireCaractere();
-        LetterPresent = findLetter(currentchar, mot_mystere, letters_found);
 
-    if (!LetterPresent) { // La lettre n'est pas dans le mot
+    if (!findLetter(currentchar, mot_mystere, letters_found)) { // La lettre n'est pas dans le mot
         viesRestante -= 1;
+        printf(ROUGE "%c n'est pas dans le mot mystère\n" RESET, currentchar);
     }
 
-        printMotMystere(mot_mystere, letters_found);
+    else printMotMystere(mot_mystere, letters_found);
         if (nombreLettresTrouvees(mot_mystere, letters_found) == len_mot){
-            printf("[\x1B[48;5;2m  ]Félicitations, le mot %s est trouvé !\x1B[0m", mot_mystere);
+            printf(VERT "Félicitations, le mot %s est trouvé\n" RESET, mot_mystere);
             break;
         }
     }
     if (viesRestante == 0)
-        printf("Perdu ! Le mot secret était :%s\n", mot_mystere);
+        printf(ROUGE "Perdu ! Le mot secret était :%s\n" RESET, mot_mystere);
     free(letters_found);
     return 0;
 }
@@ -68,10 +66,10 @@ int nombreLettresTrouvees(char motsecret[], char lettres_trouvees[]){
 
 char lireCaractere() {
     char caractere = 0;
-
+    printf(JAUNE);
     caractere = getchar();
     caractere = toupper(caractere);
-
+    printf(RESET);
     while (getchar() != '\n');
 
     return caractere;
