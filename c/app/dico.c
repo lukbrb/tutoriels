@@ -6,6 +6,7 @@
 #include "dico.h"
 
 // Inspiré de http://user.oc-static.com/pdf/14189-apprenez-a-programmer-en-c.pdf
+// Listes de mots: http://www.3zsoftware.com/fr/listes.php
 int piocherMot(char *motPioche){
     FILE* dico = NULL; // Pointeur vers le contenu du fichier
     int nombreMots = 0, numMotChoisi = 0;
