@@ -33,13 +33,13 @@ int main() {
     printf(JAUNE "Le mot mystère fait %d lettres\n\n" RESET, len_mot);
 
     while (viesRestante > 0){
-        printf(JAUNE "\n%d vies restantes !\n" RESET, viesRestante);
         printf(JAUNE "Entrer votre lettre: " RESET);
         currentchar = lireCaractere();
 
     if (!findLetter(currentchar, mot_mystere, letters_found)) { // La lettre n'est pas dans le mot
         viesRestante -= 1;
         printf(ROUGE "%c n'est pas dans le mot mystère\n" RESET, currentchar);
+        printf(JAUNE "%d vies restantes !\n\n" RESET, viesRestante);
     }
 
     else printMotMystere(mot_mystere, letters_found);

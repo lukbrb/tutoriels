@@ -14,6 +14,8 @@ void print_bienvenue(){
 
 void printMotMystere(char motmystere[], char letters_found[]){
     int lenMot = strlen(motmystere);
+    printf("\n");
+
     for(int i = 0; i < lenMot; i++){
             if(motmystere[i] == letters_found[i]){
                 printf(BLANC "%c" RESET, motmystere[i]);
@@ -22,5 +24,5 @@ void printMotMystere(char motmystere[], char letters_found[]){
                 printf(BLANC "%c" RESET,'*');
             }
         }
-    printf("\n");
+    printf("\n\n");
 }
