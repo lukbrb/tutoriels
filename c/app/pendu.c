@@ -33,7 +33,6 @@ int main() {
 
     print_bienvenue();
     printf("Le mot mystère fait %d lettres\n\n", len_mot);
-    printf("%s", mot_mystere);
 
     while (viesRestante > 0){
         printf("\n\n%d vies restantes !\n", viesRestante);
@@ -47,7 +46,7 @@ int main() {
 
         printMotMystere(mot_mystere, letters_found);
         if (nombreLettresTrouvees(mot_mystere, letters_found) == len_mot){
-            printf("Félicitations, le mot %s est trouvé !\n", mot_mystere);
+            printf("[\x1B[48;5;2m  ]Félicitations, le mot %s est trouvé !\x1B[0m", mot_mystere);
             break;
         }
     }
@@ -96,6 +95,3 @@ int findLetter(char letter, char mot_mystere[], char letters_found[]){
     }
     return isLetterPresent;
 }
-
-// TODO: Changer les valeurs initiales de lettres_trouvees
-// Problème avec len_mot : donne toujours un de plus...
