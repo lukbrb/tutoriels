@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# Liste des compilateurs à vérifier (dans l'ordre de priorité)
+COMPILERS=("clang" "gcc" "cc")  # Vous pouvez ajouter d'autres compilateurs au besoin
+
+# Configuration
+SOURCE_DIR="pendu"  # Répertoire contenant les fichiers source C
+OUTPUT_FILE="build/pendu.o"  # Nom du fichier exécutable
+mkdir -p build
+
+# Vérification de la date de modification de pendu.o
+if [ -f "$OUTPUT_FILE" ]; then
+    if [ "$(uname)" == "Darwin" ]; then
+        OUTPUT_MODIFICATION=$(stat -f %m "$OUTPUT_FILE")  # macOS
+    else
+        OUTPUT_MODIFICATION=$(stat -c %Y "$OUTPUT_FILE")  # Linux
+    fi
+else
+    OUTPUT_MODIFICATION=0
+fi
+
+compile() {
+    local compiler="$1"
+    # echo "[+] Compilation en cours avec $compiler..."
+    local commande="$compiler $SOURCE_DIR/*.c -o $OUTPUT_FILE"
+    # "$compiler" -c "$SOURCE_FILE" -o "$OUTPUT_FILE"
+    # echo "$commande"
+    $commande
+    if [ $? -eq 0 ]; then
+        echo "[+] Compilation réussie avec $compiler !"
+    else
+        echo "[x] La compilation avec $compiler a échoué."
+    fi
+}
+
+# Vérification de la disponibilité des compilateurs
+for compiler in "${COMPILERS[@]}"; do
+    if command -v "$compiler" &> /dev/null; then
+        # Vérification de la date de modification des fichiers source
+        NEEDS_COMPILATION=false
+        for file in "$SOURCE_DIR"/*.c "$SOURCE_DIR"/*.h; do
+            if [ "$(uname)" == "Darwin" ]; then
+                FILE_MODIFICATION=$(stat -f %m "$file")  # macOS
+            else
+                FILE_MODIFICATION=$(stat -c %Y "$file")  # Linux
+            fi
+            if [ "$FILE_MODIFICATION" -gt "$OUTPUT_MODIFICATION" ]; then
+                NEEDS_COMPILATION=true
+                break
+            fi
+        done
+
+        if $NEEDS_COMPILATION; then
+            # echo "[+] Compilation nécessaire avec $compiler..."
+            compile "$compiler"
+        else
+            echo "[+] Aucune compilation nécessaire. Exécution de $OUTPUT_FILE"
+        fi
+
+        break  # Sortir de la boucle dès qu'un compilateur est disponible
+    fi
+done
+
+# Exécution de l'exécutable
+if [ -f "$OUTPUT_FILE" ]; then
+    echo "[+] Exécution de $OUTPUT_FILE"
+    ./"$OUTPUT_FILE"
+fi
