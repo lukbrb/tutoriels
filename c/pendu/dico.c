@@ -7,15 +7,19 @@
 
 // Inspiré de http://user.oc-static.com/pdf/14189-apprenez-a-programmer-en-c.pdf
 // Listes de mots: http://www.3zsoftware.com/fr/listes.php
-int piocherMot(char *motPioche){
+#define DOSSIER "media/dict/"
+
+int piocherMot(char *motPioche, char* filename){
     FILE* dico = NULL; // Pointeur vers le contenu du fichier
     int nombreMots = 0, numMotChoisi = 0;
     int caractereLu = 0;
-    char* filename = "media/ods6.txt";
-    dico = fopen(filename, "r");
+    char path[32] = DOSSIER; 
+    strcat(path, filename);
+
+    dico = fopen(path, "r");
 
     if (dico == NULL){
-        printf("\nImpossible de charger le dictionnaire de mots '%s'.\n\n", filename);
+        printf("\nImpossible de charger le dictionnaire de mots '%s'.\n\n", path);
         return 0;
     }
 
