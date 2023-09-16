@@ -5,7 +5,7 @@ COMPILERS=("clang" "gcc" "cc")  # Vous pouvez ajouter d'autres compilateurs au b
 
 # Configuration
 SOURCE_DIR="pendu"  # Répertoire contenant les fichiers source C
-OUTPUT_FILE="build/pendu.o"  # Nom du fichier exécutable
+OUTPUT_FILE="build/pendu"  # Nom du fichier exécutable
 mkdir -p build
 
 # Vérification de la date de modification de pendu.o
