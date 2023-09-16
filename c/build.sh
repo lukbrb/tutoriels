@@ -1,2 +1,4 @@
+CC="gcc"
+
 mkdir -p build
-gcc app/*.c -o build/pendu.o
+$CC pendu/*.c -o build/pendu.o
