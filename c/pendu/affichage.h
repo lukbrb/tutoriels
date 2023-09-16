@@ -14,6 +14,7 @@
 
 void printMotMystere(char motmystere[], char letters_found[]);
 void print_bienvenue();
+int print_pendu(int index_print);
 
 #endif
 
