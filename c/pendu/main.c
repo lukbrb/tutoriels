@@ -14,9 +14,19 @@ int main() {
     int viesRestante = 21;
     char mot_mystere[100] = {0};
     char* letters_found = NULL;
+    char* filename = NULL;
     int len_mot = 0;
     
-    if (!piocherMot(mot_mystere))
+    print_bienvenue();
+
+    filename = choix_langage();
+
+    if (filename == NULL){
+        printf("Impossible de récupérer le langage\n");
+        exit(0);
+    }
+
+    if (!piocherMot(mot_mystere, filename))
         exit(0);
     len_mot = strlen(mot_mystere);
     letters_found = (char*) malloc(len_mot * sizeof(char));
@@ -28,12 +38,12 @@ int main() {
         letters_found[i] = '*';
     }
 
-    print_bienvenue();
+
     printf(JAUNE "Le mot mystère fait %d lettres\n\n" RESET, len_mot);
 
     while (viesRestante > 0){
         printf(JAUNE "Entrer votre lettre: " RESET);
-        currentchar = lireCaractere();
+        currentchar = lireCaractere(1);
 
     if (!findLetter(currentchar, mot_mystere, letters_found)) { // La lettre n'est pas dans le mot
         viesRestante -= 1;
@@ -64,9 +74,10 @@ int nombreLettresTrouvees(char motsecret[], char lettres_trouvees[]){
     return compteur;
 }
 
-char lireCaractere() {
+char lireCaractere(int color) {
     char caractere = 0;
-    printf(JAUNE);
+    if (color)
+        printf(JAUNE);
     caractere = getchar();
     caractere = toupper(caractere);
     printf(RESET);
@@ -92,4 +103,71 @@ int findLetter(char letter, char mot_mystere[], char letters_found[]){
         }
     }
     return isLetterPresent;
+}
+
+char* choix_langage()
+{
+    char initial_char_value = '0';  // Valeur de 48, les autres ne sont que des incrémntations
+    int choix = 0;
+    char* langage = NULL;
+    char filename[16];
+
+    print_langages();
+    printf(BLANC "Votre choix : ");
+    choix = lireCaractere(0) - initial_char_value;
+    printf("\n" RESET);
+
+    switch (choix)
+    {
+    case 1:
+        langage = "francais.txt";
+        break;
+
+    case 2:
+        langage = "english.txt";
+        break;
+    case 3:
+        langage = "espanol.txt";
+        break;
+    case 4:
+        langage = "deutsch.txt";
+        break;
+    case 5:
+        langage = "latine.txt";
+        break;
+    case 6:
+        langage = "dansk.txt";
+        break;
+    case 7:
+        langage = "norsk.txt";
+        break;
+    case 8:
+        langage = "italiano.txt";
+        break;
+    case 9:
+        langage = "nederlands.txt";
+        break;
+    default:
+        langage = "francais.txt";
+        break;
+    }
+
+    printf(BLANC "Vous avez choisi %s\n" RESET, langage);
+
+    return langage;
+}
+
+void print_langages()
+{
+    printf(BLANC "Choisir un langage :\n");
+    printf("1 - Français\n");
+    printf("2 - English\n");
+    printf("3 - Espanol\n");
+    printf("4 - Deutsch\n");
+    printf("5 - Latine\n");
+    printf("6 - Dansk\n");
+    printf("7 - Norsk\n");
+    printf("8 - Italiano\n");
+    printf("9 - Nederlands\n" RESET);
+
 }
