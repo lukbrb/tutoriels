@@ -7,16 +7,15 @@
 #include "affichage.h"
 #include "dico.h"
 
-// char mot_mystere[] = "LUCASBARBIER";
 
 int main() {
     // int indices_found[] = {};
     char currentchar = 0;
-    int viesRestante = 10;
+    int viesRestante = 21;
     char mot_mystere[100] = {0};
     char* letters_found = NULL;
     int len_mot = 0;
-
+    
     if (!piocherMot(mot_mystere))
         exit(0);
     len_mot = strlen(mot_mystere);
@@ -39,7 +38,8 @@ int main() {
     if (!findLetter(currentchar, mot_mystere, letters_found)) { // La lettre n'est pas dans le mot
         viesRestante -= 1;
         printf(ROUGE "%c n'est pas dans le mot mystère\n" RESET, currentchar);
-        printf(JAUNE "%d vies restantes !\n\n" RESET, viesRestante);
+        print_pendu(viesRestante);
+        // printf(JAUNE "%d vies restantes !\n\n" RESET, viesRestante);
     }
 
     else printMotMystere(mot_mystere, letters_found);
@@ -49,7 +49,7 @@ int main() {
         }
     }
     if (viesRestante == 0)
-        printf(ROUGE "Perdu ! Le mot secret était :%s\n" RESET, mot_mystere);
+        printf(ROUGE "Perdu ! Le mot secret était : %s\n" RESET, mot_mystere);
     free(letters_found);
     return 0;
 }
