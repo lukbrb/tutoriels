@@ -2,7 +2,7 @@
 #define DEF_MAIN
 
 char lireCaractere(int color);
-int findLetter(char letter, char mot_mystere[], char letters_found[]);
+int findLetter(char letter, char mot_mystere[], char letters_found[], int *lang_vers);
 int nombreLettresTrouvees(char motsecret[], char lettres_trouvees[]);
 char* choix_langage(int *lang_version);
 void print_langages();
