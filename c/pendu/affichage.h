@@ -14,7 +14,7 @@
 
 // Messages affichés à l'écran
 
-#define FR_CHOIXLANGUE "Vous avez choisi %s\n", 
+#define FR_CHOIXLANGUE "Vous avez choisi %s\n"
 #define EN_CHOIXLANGUE "You chose %s\n"
 
 #define FR_LETTRE_ENTREE "La lettre %c a déjà été entrée\n"
@@ -33,7 +33,7 @@
 #define EN_VICTOIRE "Congratulations, the hidden word is %s\n"
 
 #define FR_DEFAITE "Perdu ! Le mot secret était : %s\n"
-#define EN_DEFAITE "You lost... The hidden word is: %s\n"
+#define EN_DEFAITE "You lost... The hidden word was: %s\n"
 
 void printMotMystere(char motmystere[], char letters_found[]);
 void print_bienvenue();
