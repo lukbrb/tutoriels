@@ -54,14 +54,10 @@ int main() {
         currentchar = lireCaractere(1);
      
      // La lettre n'est pas dans le mot
-    if (!findLetter(currentchar, mot_mystere, letters_found)) {
+    if (!findLetter(currentchar, mot_mystere, letters_found, &lang_version)) {
         viesRestante -= 1;
         if (lang_version == 0) printf(ROUGE FR_LETTRE_ABSENTE RESET, currentchar);
         else if (lang_version == 1) printf(ROUGE EN_LETTRE_ABSENTE RESET, currentchar);
-        else {
-            printf("[ERREUR] Mauvaise attribution du pointeur 'lang_version'.\n");
-            exit(0);
-        };
         print_pendu(viesRestante);
         // printf(JAUNE "%d vies restantes !\n\n" RESET, viesRestante);
     }
@@ -70,20 +66,12 @@ int main() {
         if (nombreLettresTrouvees(mot_mystere, letters_found) == len_mot){
             if (lang_version == 0) printf(VERT FR_VICTOIRE RESET, mot_mystere);
             else if (lang_version == 1) printf(VERT EN_VICTOIRE RESET, mot_mystere);
-            else {
-                printf("[ERREUR] Mauvaise attribution du pointeur 'lang_version'.\n");
-                exit(0);
-            };
             break;
         }
     }
     if (viesRestante == 0){
         if (lang_version == 0) printf(ROUGE FR_DEFAITE RESET, mot_mystere);
         else if (lang_version == 1) printf(ROUGE EN_DEFAITE RESET, mot_mystere);
-        else {
-            printf("[ERREUR] Mauvaise attribution du pointeur 'lang_version'.\n");
-            exit(0);
-        };
     }
     free(letters_found);
     return 0;
@@ -111,14 +99,16 @@ char lireCaractere(int color) {
     return caractere;
 }
 
-int findLetter(char letter, char mot_mystere[], char letters_found[]){
+int findLetter(char letter, char mot_mystere[], char letters_found[], int *lang_vers){
     int isLetterPresent = 0;
     int lenMot = strlen(mot_mystere);
     // Verifie si la lettre & déjà été entrée
     // TODO : À optimiser
     for(int i = 0; i < lenMot; i++){
         if (letters_found[i] == letter){
-            printf(FR_LETTRE_ENTREE, letter);
+            if (*lang_vers == 0) printf(FR_LETTRE_ENTREE, letter);
+            else if (*lang_vers == 1) printf(EN_LETTRE_ENTREE, letter);
+            else printf(FR_LETTRE_ENTREE, letter); // Le programme n'a pas de raison de planter ici.
             return 1999;
         }
     }
@@ -187,8 +177,10 @@ char* choix_langage(int *lang_version)
         break;
     }
 
-    printf(BLANC "Vous avez choisi %s\n" RESET, langage);
-
+    if (*lang_version == 0)  printf(BLANC FR_CHOIXLANGUE RESET, langage);
+    else if (*lang_version == 1) printf(BLANC EN_CHOIXLANGUE RESET, langage);
+    else printf(ROUGE "[ERREUR] Mauvaise attribution du pointeur 'lang_version'.\n");
+    
     return langage;
 }
 
