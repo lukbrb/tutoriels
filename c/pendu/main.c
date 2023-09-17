@@ -11,15 +11,14 @@
 int main() {
     // int indices_found[] = {};
     char currentchar = 0;
-    int viesRestante = 21;
+    int viesRestante = 21, len_mot = 0, lang_version = 0;
+    // int *lang_vers_point = 
     char mot_mystere[100] = {0};
-    char* letters_found = NULL;
-    char* filename = NULL;
-    int len_mot = 0;
+    char *letters_found = NULL, *filename = NULL;
     
     print_bienvenue();
 
-    filename = choix_langage();
+    filename = choix_langage(&lang_version);
 
     if (filename == NULL){
         printf("Impossible de récupérer le langage\n");
@@ -38,28 +37,54 @@ int main() {
         letters_found[i] = '*';
     }
 
-
-    printf(JAUNE "Le mot mystère fait %d lettres\n\n" RESET, len_mot);
+    if (lang_version == 0) printf(JAUNE FR_LEN_MOT_MYSTERE RESET, len_mot);
+    else if (lang_version == 1) printf(JAUNE EN_LEN_MOT_MYSTERE RESET, len_mot);
+    else {
+        printf("[ERREUR] Mauvaise attribution du pointeur 'lang_version'.\n");
+        exit(0);
+    };
 
     while (viesRestante > 0){
-        printf(JAUNE "Entrer votre lettre: " RESET);
+        if (lang_version == 0) printf(JAUNE FR_ENTRER_LETTRE RESET);
+        else if (lang_version == 1) printf(JAUNE EN_ENTRER_LETTRE RESET);
+        else {
+            printf("[ERREUR] Mauvaise attribution du pointeur 'lang_version'.\n");
+            exit(0);
+        };
         currentchar = lireCaractere(1);
-
-    if (!findLetter(currentchar, mot_mystere, letters_found)) { // La lettre n'est pas dans le mot
+     
+     // La lettre n'est pas dans le mot
+    if (!findLetter(currentchar, mot_mystere, letters_found)) {
         viesRestante -= 1;
-        printf(ROUGE "%c n'est pas dans le mot mystère\n" RESET, currentchar);
+        if (lang_version == 0) printf(ROUGE FR_LETTRE_ABSENTE RESET, currentchar);
+        else if (lang_version == 1) printf(ROUGE EN_LETTRE_ABSENTE RESET, currentchar);
+        else {
+            printf("[ERREUR] Mauvaise attribution du pointeur 'lang_version'.\n");
+            exit(0);
+        };
         print_pendu(viesRestante);
         // printf(JAUNE "%d vies restantes !\n\n" RESET, viesRestante);
     }
 
     else printMotMystere(mot_mystere, letters_found);
         if (nombreLettresTrouvees(mot_mystere, letters_found) == len_mot){
-            printf(VERT "Félicitations, le mot %s est trouvé\n" RESET, mot_mystere);
+            if (lang_version == 0) printf(VERT FR_VICTOIRE RESET, mot_mystere);
+            else if (lang_version == 1) printf(VERT EN_VICTOIRE RESET, mot_mystere);
+            else {
+                printf("[ERREUR] Mauvaise attribution du pointeur 'lang_version'.\n");
+                exit(0);
+            };
             break;
         }
     }
-    if (viesRestante == 0)
-        printf(ROUGE "Perdu ! Le mot secret était : %s\n" RESET, mot_mystere);
+    if (viesRestante == 0){
+        if (lang_version == 0) printf(ROUGE FR_DEFAITE RESET, mot_mystere);
+        else if (lang_version == 1) printf(ROUGE EN_DEFAITE RESET, mot_mystere);
+        else {
+            printf("[ERREUR] Mauvaise attribution du pointeur 'lang_version'.\n");
+            exit(0);
+        };
+    }
     free(letters_found);
     return 0;
 }
@@ -90,9 +115,10 @@ int findLetter(char letter, char mot_mystere[], char letters_found[]){
     int isLetterPresent = 0;
     int lenMot = strlen(mot_mystere);
     // Verifie si la lettre & déjà été entrée
+    // TODO : À optimiser
     for(int i = 0; i < lenMot; i++){
         if (letters_found[i] == letter){
-            printf("La lettre %c a déjà été entrée\n", letter);
+            printf(FR_LETTRE_ENTREE, letter);
             return 1999;
         }
     }
@@ -105,12 +131,11 @@ int findLetter(char letter, char mot_mystere[], char letters_found[]){
     return isLetterPresent;
 }
 
-char* choix_langage()
+char* choix_langage(int *lang_version)
 {
-    char initial_char_value = '0';  // Valeur de 48, les autres ne sont que des incrémntations
+    char initial_char_value = '0';  // Valeur de 48, les autres ne sont que des incrémentations
     int choix = 0;
-    char* langage = NULL;
-    char filename[16];
+    char *langage = NULL;
 
     print_langages();
     printf(BLANC "Votre choix : ");
@@ -121,34 +146,44 @@ char* choix_langage()
     {
     case 1:
         langage = "francais.txt";
+        *lang_version = 0;
         break;
 
     case 2:
         langage = "english.txt";
+        *lang_version = 1;
         break;
     case 3:
         langage = "espanol.txt";
+        *lang_version = 1;
         break;
     case 4:
         langage = "deutsch.txt";
+        *lang_version = 1;
         break;
     case 5:
         langage = "latine.txt";
+        *lang_version = 1;
         break;
     case 6:
         langage = "dansk.txt";
+        *lang_version = 1;
         break;
     case 7:
         langage = "norsk.txt";
+        *lang_version = 1;
         break;
     case 8:
         langage = "italiano.txt";
+        *lang_version = 1;
         break;
     case 9:
         langage = "nederlands.txt";
+        *lang_version = 1;
         break;
     default:
         langage = "francais.txt";
+        *lang_version = 0;
         break;
     }
 
