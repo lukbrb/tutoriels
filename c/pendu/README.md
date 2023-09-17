@@ -9,7 +9,7 @@ La liste de mots est tirée de : http://www.3zsoftware.com/fr/listes.php
 ~1. Donner la possibilité de choisir la langue~
     ~-> maj langue des affichages (juste anglais si choix pas français). ~ Voir également fichiers de traductions... (peut-être pas pour ce projet).
 2. Donner la possibilité de jouer en multijoueur  
-3. ~Implémenter le téléchargement des listes dans d'autres langues~ Plus utile, toutes les langues sont déjà disponibles.
+3. ~Implémenter le téléchargement des listes dans d'autres langues~ Plus utile, toutes les langues sont déjà disponibles.  
 4. Proposer définitions des mots en fin de jeu  
 
 À faire : rendre la nomenclature des variables cohérente.
