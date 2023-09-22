@@ -4,7 +4,7 @@ import numpy as np
 
 
 pp = pprint.PrettyPrinter()
-# grille = [[0] * 9] * 9
+
 grille = [
     [0, 0, 1, 0, 3, 0, 0, 2, 6],
     [0, 0, 0, 8, 1, 0, 7, 9, 0],
@@ -36,15 +36,6 @@ def can_place_number(grille, ligne, col, num):
     
     return True
 
-"""
-Rétro-traçage : 
-
-Le backtracking est une forme de parcours en profondeur d'un arbre avec des contraintes sur les noeuds
-L'idée est de partir du noeud parent, descendre dans le premier noeud fils satisfaisant la contrainte. Ce noeud fils devient alors un noeud parent et l'on parcourt ensuite ses noeuds fils sous le même principe.
-Lorsque l'on a parcouru tous les noeuds fils d'un noeud et qu'aucun ne satisfait la contrainte, on remonte alors au noeud parent et on descend dans le noeud fils suivant.
-Si l'on arrive au dernier fils du premier noeud parent et qu'il ne satisfait pas la contrainte alors il n'existe pas de solution.
-La solution est identifiée lorsque l'on arrive à un noeud qui satisfait la contrainte et qui n'a pas de noeud fils. 
-"""
 
 # solution inspired from computerphile's video: https://youtu.be/G_UYXzGuqvM?si=GdCwpxlCsM1_wDzz
 def solve_sudoku(grille): 
