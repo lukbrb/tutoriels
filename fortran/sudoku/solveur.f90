@@ -10,7 +10,7 @@ module solveur
     logical function is_possible(grille, ligne, col, num) result(possible)
         integer, dimension(9, 9), intent(in) :: grille
         integer, intent(in) :: ligne, col, num
-        integer :: l, c !, debut_ligne, debut_col
+        integer :: l, c
         logical :: ok_ligne, ok_col, ok_carre
 
         l=((ligne - 1) / 3) * 3 + 1
@@ -19,7 +19,7 @@ module solveur
         ok_ligne = all(grille(ligne, :) /= num)
         ok_col = all(grille(:, col) /= num)
         ok_carre = all(grille(l:l+2, c:c+2) /= num)
-        ! (grille(debut_ligne + l, debut_col + c) == num)
+  
         if(ok_ligne .and. ok_col.and. ok_carre)then
             possible = .true.
         
