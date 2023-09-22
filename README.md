@@ -5,10 +5,14 @@ simplement pour se familiariser avec un nouveau langage. Sont également inclus 
 
 ## Liste des projets
 
-**En C:**
+**C:**
 
 1. [Jeu du pendu multilingue](c/pendu/) ✅
 
-**En Python:**
+**Python:**
 
 1. [Solveur de Sudoku](python/sudoku.py) ✅
+
+**Fortran:**
+
+1. [Solveur de Sudoku](fortran/sudoku/) ✅
