@@ -1,4 +1,4 @@
-""" 11. Container with most water.
+""" 11. Container with most water: https://leetcode.com/problems/container-with-most-water/description/
 
 Consigne :
 
@@ -23,16 +23,38 @@ Output: 1
 
 def maxArea(height):
     area_max = 0
-    for i, h in enumerate(height):
-        for j, other in enumerate(height):
-            area = min(h, other) * (j - i)
-            if area_max < area:
-                area_max = area
-    
+    left = 0
+    right = len(height) - 1
+
+    while left < right:
+        hleft = height[left]
+        hright = height[right]
+        area = ((hleft <= hright) * hleft + (hright < hleft) * hright) * (right - left)
+        if area > area_max: area_max = area
+
+        if hleft < hright: left += 1
+        else: right -= 1
+
     return area_max
 
 
 height = [1, 8 ,6, 2, 5, 4, 8, 3, 7]
+print("Test 1: ", maxArea(height) == 49)
+print("Test 2: ", maxArea([1, 1]) == 1)
 
-print("Cas 1: ", maxArea(height) == 49)
-print("Cas 2: ", maxArea([1, 1]) == 1)
+
+"""
+Résultats:
+-----------
+Runtime: 564ms
+Beats 91.70%of users with Python3
+------------
+Memory: 29.33MB
+Beats 36.88%of users with Python3
+"""
+
+def min(a, b):
+    if a < b: return a # = (a <= b) * a
+    if b < a: return b # (b < a) * b
+
+# On réecrit donc min(a, b) = (a <= b) * a + (b < a) * b
