@@ -13,7 +13,8 @@ float grid[HEIGHT][WIDTH] = {0};
 float grid_diff[HEIGHT][WIDTH] = {0};
 
 float ra = 11;
-float alpha = 0.028; // 0.147
+float alpha_n = 0.028; 
+float alpha_m = 0.147;
 float b1 = 0.278;
 float b2 = 0.365;
 float d1 = 0.267;
@@ -27,8 +28,14 @@ float rand_float(void)
 
 void random_grid(void)
 {
-    for (size_t y = 0; y < HEIGHT; ++y){
-        for (size_t x = 0; x < WIDTH; ++x){
+    size_t w = WIDTH/3;
+    size_t h = HEIGHT/3;
+
+    for (size_t dy = 0; dy < h; ++dy){
+        for (size_t dx = 0; dx < WIDTH; ++dx){
+            // Centrer l'affichage
+            size_t x = dx + WIDTH/2 - w/2;
+            size_t y = dy + HEIGHT/2 - h/2;
             grid[y][x] = rand_float();
         }
     }
@@ -39,6 +46,7 @@ void display_grid(float grid[HEIGHT][WIDTH])
     for (size_t y = 0; y < HEIGHT; ++y){
         for (size_t x = 0; x < WIDTH; ++x){
             char c = level[(int)(grid[y][x] * (level_count - 1))];
+            fputc(c, stdout);
             fputc(c, stdout);
 
         }
@@ -52,25 +60,29 @@ int emod(int num, int container)
     return (num % container + container) % container;
 }
 
-float sigma1(float x, float a)
+float sigma(float x, float a, float alpha)
 {
     return 1.0f / (1.0f + expf(-(x - a) * 4/alpha));
 }
 
-float sigma2(float x, float a, float b)
-{
-    return sigma1(x, a) * (1 - sigma1(x, b));
+// float sigma2(float x, float a, float b)
+// {
+//     return sigma1(x, a) * (1 - sigma1(x, b));
+// }
+
+float sigma_n(float x, float a, float b){
+    return sigma(x, a, alpha_n) * (1 - sigma(x, b, alpha_n));
 }
 
-float sigmam(float x, float y, float m)
+float sigma_m(float x, float y, float m)
 {
-    return x * (1 - sigma1(m, 0.5f)) + y * sigma1(m, 0.5f);
+    return x * (1 - sigma(m, 0.5f, alpha_m)) + y * sigma(m, 0.5f, alpha_m);
 
 }
 
 float s(float n, float m)
 {
-    return sigma2(n, sigmam(b1, d1, m), sigmam(b2, d2, m));
+    return sigma_n(n, sigma_m(b1, d1, m), sigma_m(b2, d2, m));
 }
 
 void compute_grid_diff(void)
@@ -116,6 +128,16 @@ void clamp(float *x, float l, float h)
 }
 
 
+void apply_grid_diff(void)
+{
+    for (size_t y = 0; y < HEIGHT; ++y){
+        for (size_t x = 0; x < WIDTH; ++x){
+                grid[y][x] += dt * grid_diff[y][x];
+                clamp(&grid[y][x], 0, 1);
+        }
+    }
+}
+
 int main(void)
 {
     srand(time(0));
@@ -123,13 +145,9 @@ int main(void)
     display_grid(grid);
     for (;;){
         compute_grid_diff();
-        for (size_t y = 0; y < HEIGHT; ++y){
-            for (size_t x = 0; x < HEIGHT; ++x){
-                grid[y][x] += dt * grid_diff[y][x];
-                clamp(&grid[y][x], 0, 1);
-            }
-        }
+        apply_grid_diff();
         display_grid(grid);
     }
+    
     return 0;
 }
