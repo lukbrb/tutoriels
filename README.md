@@ -8,6 +8,7 @@ simplement pour se familiariser avec un nouveau langage. Sont également inclus 
 **C:**
 
 1. [Jeu du pendu multilingue](c/pendu/) ✅
+2. [Jeu de la vie continu](c/smoothlife/) ✅
 
 **Python:**
 
