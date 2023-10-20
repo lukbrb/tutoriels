@@ -2,4 +2,6 @@
 
 set -xe
 
-clang -O3 -Wall -Wextra -o main main.c -lm
+CC="${CXX:-cc}"
+
+$CC -O3 -Wall -Wextra -o main main.c -lm
