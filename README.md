@@ -10,10 +10,6 @@ simplement pour se familiariser avec un nouveau langage. Sont également inclus 
 1. [Jeu du pendu multilingue](c/pendu/) ✅
 2. [Jeu de la vie continu](c/smoothlife/) ✅
 
-**Python:**
-
-1. [Solveur de Sudoku](python/sudoku.py) ✅
-
 **Fortran:**
 
 1. [Solveur de Sudoku](fortran/sudoku/) ✅
