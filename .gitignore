@@ -5,3 +5,6 @@ build/
 /build
 *.mod
 builder
+fortran/tic-tac-toe/raylib/
+*.c
+fortran/tic-tac-toe/src/ccode.c
