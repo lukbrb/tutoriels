@@ -6,3 +6,4 @@ exemples/
 builder
 tic-tac-toe/raylib/
 tic-tac-toe/src/ccode.c
+tic-tac-toe/test.c
