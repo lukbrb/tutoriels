@@ -4,7 +4,7 @@
 COMPILERS=("clang" "gcc" "cc")  # Vous pouvez ajouter d'autres compilateurs au besoin
 
 # Configuration
-SOURCE_DIR="pendu"  # Répertoire contenant les fichiers source C
+SOURCE_DIR="."  # Répertoire contenant les fichiers source C
 OUTPUT_FILE="build/pendu"  # Nom du fichier exécutable
 mkdir -p build
 
