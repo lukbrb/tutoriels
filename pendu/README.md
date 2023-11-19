@@ -38,7 +38,7 @@ Finalement, une fin de partie gagnée ressemblera à ça
 
 ![Message de bienvenue du programme](media/terminal_exemple2.png)
 
-## Projets d'améliration
+## Projets d'amélioration
 
 Éventuels axes d'amélioration :  
 
