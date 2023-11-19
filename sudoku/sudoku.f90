@@ -4,7 +4,7 @@ program sudoku
 
     integer, dimension(9, 9) :: grille
     
-    call read_sudoku("sudoku/pb1.txt", grille)
+    call read_sudoku("grilles/pb1.txt", grille)
 
     print*, "Grille initiale:", new_line("")
     write(*, '(9(I3))') grille
