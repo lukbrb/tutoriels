@@ -4,6 +4,6 @@ exemples/
 *.o
 *.mod
 builder
-tic-tac-toe/raylib/
-tic-tac-toe/src/ccode.c
-tic-tac-toe/test.c
+morpion/raylib/
+morpion/src/ccode.c
+morpion/test.c
